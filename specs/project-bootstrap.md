@@ -92,7 +92,7 @@ pub struct Asteroid {
     pub size: AsteroidSize,
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]  // Debug added post-implementation
 pub enum AsteroidSize {
     Large,
     Medium,

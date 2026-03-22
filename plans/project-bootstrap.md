@@ -46,7 +46,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Define every component and constant the plugins will share so downstream tasks have concrete types to reference. Requires group 1.
 
-- [ ] **2.1** Populate `src/config.rs` with all constants from the spec:
+- [x] **2.1** Populate `src/config.rs` with all constants from the spec:
   ```rust
   pub const SHIP_ROTATION_SPEED: f32 = 3.0;
   pub const SHIP_THRUST: f32 = 200.0;
@@ -58,12 +58,12 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   pub const ASTEROID_MIN_SPEED: f32 = 40.0;
   pub const ASTEROID_MAX_SPEED: f32 = 120.0;
   ```
-- [ ] **2.2** Add marker components to `src/components.rs`:
+- [x] **2.2** Add marker components to `src/components.rs`:
   - `#[derive(Component)] pub struct Player;`
   - `#[derive(Component)] pub struct Bullet;`
-- [ ] **2.3** Add `BulletLifetime` to `src/components.rs`:
+- [x] **2.3** Add `BulletLifetime` to `src/components.rs`:
   - `#[derive(Component)] pub struct BulletLifetime(pub Timer);`
-- [ ] **2.4** Add `AsteroidSize` enum and `Asteroid` component to `src/components.rs`:
+- [x] **2.4** Add `AsteroidSize` enum and `Asteroid` component to `src/components.rs`:
   ```rust
   #[derive(Clone, Copy, PartialEq, Eq, Debug)]
   pub enum AsteroidSize { Large, Medium, Small }
@@ -76,12 +76,12 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   #[derive(Component)]
   pub struct Asteroid { pub size: AsteroidSize }
   ```
-- [ ] **2.5** Add movement components to `src/components.rs`:
+- [x] **2.5** Add movement components to `src/components.rs`:
   - `#[derive(Component)] pub struct Velocity(pub Vec2);`
   - `#[derive(Component)] pub struct AngularVelocity(pub f32);`
   - `#[derive(Component, Default)] pub struct Thruster { pub active: bool }`
-- [ ] **2.6** Add `use bevy::prelude::*;` at the top of `components.rs` (needed for `Component`, `Timer`)
-- [ ] **2.7** Write unit tests in `src/components.rs` in a `#[cfg(test)]` module:
+- [x] **2.6** Add `use bevy::prelude::*;` at the top of `components.rs` (needed for `Component`, `Timer`)
+- [x] **2.7** Write unit tests in `src/components.rs` in a `#[cfg(test)]` module:
   - `fn large_splits_to_medium()` — assert `AsteroidSize::Large.split() == Some(AsteroidSize::Medium)`
   - `fn medium_splits_to_small()` — assert `AsteroidSize::Medium.split() == Some(AsteroidSize::Small)`
   - `fn small_does_not_split()` — assert `AsteroidSize::Small.split() == None`
