@@ -7,9 +7,14 @@
 - [x] Review: validate implementation against spec (`/review`)
 
 ## Post-MVP (Future)
-- [ ] Score system — points per asteroid size destroyed
 - [x] Lives and game over state (`specs/lives-and-game-over.md`)
-- [ ] Main menu screen
-- [ ] New wave spawning on asteroid clear
 - [x] Sound effects (`specs/sound-effects.md`)
+- [ ] Score system — points per asteroid size destroyed (`specs/score-system.md`)
+- [ ] Thrust enhancements: faster, less friction. Possibly reverse/brake
+- [ ] New wave spawning on asteroid clear. Show level in HUD
+- [ ] Increased number of asteriods on level clear. Up to max number.
+- [ ] Extra life at X points
+- [ ] Enemy ships
+- [ ] Power ups - double firepower, shields, extra life, nuke (decimates asteroids)
 - [ ] High score persistence
+- [ ] Main menu screen (TODO is this sill needed?)
