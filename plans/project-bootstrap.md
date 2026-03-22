@@ -24,19 +24,19 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Establish a compiling Bevy app skeleton with the correct module structure so all subsequent tasks have a stable home.
 
-- [ ] **1.1** Create `Cargo.toml` at the workspace root:
+- [x] **1.1** Create `Cargo.toml` at the workspace root:
   - `[package]` with `name = "space_rocks"`, `edition = "2021"`
   - `[dependencies]` with `bevy = "0.15"`
-- [ ] **1.2** Create `src/main.rs` with a minimal `fn main()` that builds `App::new().add_plugins(DefaultPlugins).run()`
-- [ ] **1.3** Create `src/config.rs` as an empty module (`// TODO: constants`); declare `mod config;` in `main.rs`
-- [ ] **1.4** Create `src/components.rs` as an empty module (`// TODO: components`); declare `mod components;` in `main.rs`
-- [ ] **1.5** Create `src/plugins/mod.rs` with stub `pub mod ship; pub mod asteroid; pub mod bullet; pub mod collision;`; declare `mod plugins;` in `main.rs`
-- [ ] **1.6** Create stub plugin files that each define a zero-body plugin struct and `impl Plugin`:
+- [x] **1.2** Create `src/main.rs` with a minimal `fn main()` that builds `App::new().add_plugins(DefaultPlugins).run()`
+- [x] **1.3** Create `src/config.rs` as an empty module (`// TODO: constants`); declare `mod config;` in `main.rs`
+- [x] **1.4** Create `src/components.rs` as an empty module (`// TODO: components`); declare `mod components;` in `main.rs`
+- [x] **1.5** Create `src/plugins/mod.rs` with stub `pub mod ship; pub mod asteroid; pub mod bullet; pub mod collision;`; declare `mod plugins;` in `main.rs`
+- [x] **1.6** Create stub plugin files that each define a zero-body plugin struct and `impl Plugin`:
   - `src/plugins/ship.rs` — `pub struct ShipPlugin;` + `impl Plugin for ShipPlugin { fn build(&self, _app: &mut App) {} }`
   - `src/plugins/asteroid.rs` — same pattern for `AsteroidPlugin`
   - `src/plugins/bullet.rs` — same pattern for `BulletPlugin`
   - `src/plugins/collision.rs` — same pattern for `CollisionPlugin`
-- [ ] **1.7** Register all four stub plugins in `main.rs` `App::new().add_plugins(DefaultPlugins).add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin)).run()`
+- [x] **1.7** Register all four stub plugins in `main.rs` `App::new().add_plugins(DefaultPlugins).add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin)).run()`
 
 *Checkpoint: `cargo build` compiles cleanly with no errors. A blank Bevy window opens on `cargo run`. No gameplay yet.*
 
