@@ -81,7 +81,8 @@ pub struct Score(pub u32);
 /// Collision systems skip entities that carry this component.
 #[derive(Component)]
 pub struct Invincible {
-    pub timer: Timer,
+    pub timer: Timer,        // total invincibility duration
+    pub blink_timer: Timer,  // toggles visibility every SHIP_BLINK_INTERVAL_SECS (updated post-implementation)
 }
 
 /// Resource present only while in the Dead state. Counts down before respawn.
@@ -94,6 +95,13 @@ pub struct ShipDestroyedEvent;
 
 #[derive(Event)]
 pub struct ResetGameEvent;
+
+/// Fired by GameStatePlugin (respawn path) and ShipPlugin (reset path) to centralise
+/// all ship spawning in ShipPlugin. (added post-implementation)
+#[derive(Event)]
+pub struct SpawnShipEvent {
+    pub invincible: bool,
+}
 
 // HUD marker components
 #[derive(Component)]

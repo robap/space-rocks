@@ -169,19 +169,19 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Implement all state-transition systems: startup resources, attract/game-over input, ship-destroyed handler, respawn timer, and invincibility tick. Requires group 4.
 
-- [ ] **5.1** In `GameStatePlugin::build`, register events:
+- [x] **5.1** In `GameStatePlugin::build`, register events:
   ```rust
   app.add_event::<ShipDestroyedEvent>()
      .add_event::<ResetGameEvent>();
   ```
   *(Note: `SpawnShipEvent` is registered by `ShipPlugin` — see group 6.)*
 
-- [ ] **5.2** Write `fn insert_game_resources(mut commands: Commands)` startup system:
+- [x] **5.2** Write `fn insert_game_resources(mut commands: Commands)` startup system:
   - `commands.insert_resource(Lives(PLAYER_STARTING_LIVES));`
   - `commands.insert_resource(Score(0));`
   - Register in `build` with `.add_systems(Startup, insert_game_resources)`.
 
-- [ ] **5.3** Write `fn handle_attract_input` system:
+- [x] **5.3** Write `fn handle_attract_input` system:
   ```rust
   fn handle_attract_input(
       keys: Res<ButtonInput<KeyCode>>,
@@ -194,9 +194,9 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   - If `keys.get_just_pressed().next().is_some()`: set `lives.0 = PLAYER_STARTING_LIVES`, `score.0 = 0`, fire `ResetGameEvent`, `next_state.set(GameState::Playing)`.
   - Register with `.add_systems(Update, handle_attract_input.run_if(in_state(GameState::Attract)))`.
 
-- [ ] **5.4** Write `fn handle_game_over_input` system — identical logic to `handle_attract_input`. Register with `.run_if(in_state(GameState::GameOver))`.
+- [x] **5.4** Write `fn handle_game_over_input` system — identical logic to `handle_attract_input`. Register with `.run_if(in_state(GameState::GameOver))`.
 
-- [ ] **5.5** Write `fn on_ship_destroyed` system:
+- [x] **5.5** Write `fn on_ship_destroyed` system:
   ```rust
   fn on_ship_destroyed(
       mut events: EventReader<ShipDestroyedEvent>,
@@ -212,7 +212,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   - Else: `next_state.set(GameState::GameOver)`.
   - Register with `.add_systems(Update, on_ship_destroyed)`.
 
-- [ ] **5.6** Write `fn tick_respawn_timer` system:
+- [x] **5.6** Write `fn tick_respawn_timer` system:
   ```rust
   fn tick_respawn_timer(
       mut commands: Commands,
@@ -226,7 +226,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   - If `timer.0.finished()`: `commands.remove_resource::<RespawnTimer>()`, fire `SpawnShipEvent { invincible: true }`, `next_state.set(GameState::Playing)`.
   - Register with `.add_systems(Update, tick_respawn_timer.run_if(in_state(GameState::Dead)))`.
 
-- [ ] **5.7** Write `fn tick_invincibility` system:
+- [x] **5.7** Write `fn tick_invincibility` system:
   ```rust
   fn tick_invincibility(
       mut commands: Commands,

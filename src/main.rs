@@ -13,7 +13,14 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .init_state::<GameState>()
-        .add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin, GameStatePlugin, HudPlugin))
+        .add_plugins((
+            ShipPlugin,
+            AsteroidPlugin,
+            BulletPlugin,
+            CollisionPlugin,
+            GameStatePlugin,
+            HudPlugin,
+        ))
         .configure_sets(
             Update,
             (GameSet::Movement, GameSet::Collision, GameSet::Despawn).chain(),

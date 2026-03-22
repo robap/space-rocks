@@ -1,5 +1,4 @@
 use bevy::prelude::*;
-use crate::components::*;
 
 pub struct HudPlugin;
 
