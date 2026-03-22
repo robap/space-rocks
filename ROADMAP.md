@@ -11,5 +11,5 @@
 - [x] Lives and game over state (`specs/lives-and-game-over.md`)
 - [ ] Main menu screen
 - [ ] New wave spawning on asteroid clear
-- [ ] Sound effects
+- [ ] Sound effects (`specs/sound-effects.md`)
 - [ ] High score persistence
