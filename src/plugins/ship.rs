@@ -150,6 +150,7 @@ fn ship_shoot(
     mut materials: ResMut<Assets<ColorMaterial>>,
     keys: Res<ButtonInput<KeyCode>>,
     query: Query<(&Transform, &Velocity), With<Player>>,
+    mut bullet_fired: EventWriter<BulletFiredEvent>,
 ) {
     if !keys.just_pressed(KeyCode::Space) {
         return;
@@ -169,6 +170,7 @@ fn ship_shoot(
         Velocity(bullet_vel),
         BulletLifetime(Timer::from_seconds(BULLET_LIFETIME, TimerMode::Once)),
     ));
+    bullet_fired.send(BulletFiredEvent);
 }
 
 #[cfg(test)]

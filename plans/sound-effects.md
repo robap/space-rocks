@@ -58,8 +58,8 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
 
 > Wire the new events into the two existing systems that generate the relevant game actions. No new files — only small parameter additions.
 
-- [ ] **3.1** In `src/plugins/ship.rs`, update `ship_shoot` to accept an `EventWriter<BulletFiredEvent>` parameter and call `bullet_fired.send(BulletFiredEvent)` immediately after spawning the bullet entity.
-- [ ] **3.2** In `src/plugins/collision.rs`, update `bullet_asteroid_collision` to accept an `EventWriter<AsteroidDestroyedEvent>` parameter and call `asteroid_destroyed.send(AsteroidDestroyedEvent { size: asteroid.size })` immediately after despawning the asteroid entity (before calling `spawn_split_asteroids`).
+- [x] **3.1** In `src/plugins/ship.rs`, update `ship_shoot` to accept an `EventWriter<BulletFiredEvent>` parameter and call `bullet_fired.send(BulletFiredEvent)` immediately after spawning the bullet entity.
+- [x] **3.2** In `src/plugins/collision.rs`, update `bullet_asteroid_collision` to accept an `EventWriter<AsteroidDestroyedEvent>` parameter and call `asteroid_destroyed.send(AsteroidDestroyedEvent { size: asteroid.size })` immediately after despawning the asteroid entity (before calling `spawn_split_asteroids`).
 
 *Checkpoint: `cargo build` compiles cleanly. Events are sent but not yet registered — the app won't run correctly until Task 4 registers them, but the build must be clean.*
 

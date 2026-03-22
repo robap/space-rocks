@@ -25,6 +25,7 @@ fn bullet_asteroid_collision(
     mut materials: ResMut<Assets<ColorMaterial>>,
     bullets: Query<(Entity, &Transform), With<Bullet>>,
     asteroids: Query<(Entity, &Transform, &Asteroid)>,
+    mut asteroid_destroyed: EventWriter<AsteroidDestroyedEvent>,
 ) {
     let mut hit_asteroids: HashSet<Entity> = HashSet::new();
 
@@ -44,6 +45,7 @@ fn bullet_asteroid_collision(
                 commands.entity(bullet_entity).despawn();
                 commands.entity(asteroid_entity).despawn();
                 hit_asteroids.insert(asteroid_entity);
+                asteroid_destroyed.send(AsteroidDestroyedEvent { size: asteroid.size });
                 spawn_split_asteroids(
                     &mut commands,
                     &mut meshes,
