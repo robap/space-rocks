@@ -9,10 +9,12 @@ pub struct AsteroidPlugin;
 
 impl Plugin for AsteroidPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_asteroids).add_systems(
-            Update,
-            (move_asteroids, wrap_asteroids).in_set(GameSet::Movement),
-        );
+        app.add_systems(Startup, spawn_asteroids)
+            .add_systems(
+                Update,
+                (move_asteroids, wrap_asteroids).in_set(GameSet::Movement),
+            )
+            .add_systems(Update, handle_asteroid_reset);
     }
 }
 
@@ -25,6 +27,15 @@ fn spawn_asteroids(
     let Ok(window) = window.get_single() else {
         return;
     };
+    spawn_asteroids_into(&mut commands, &mut meshes, &mut materials, window);
+}
+
+fn spawn_asteroids_into(
+    commands: &mut Commands,
+    meshes: &mut ResMut<Assets<Mesh>>,
+    materials: &mut ResMut<Assets<ColorMaterial>>,
+    window: &Window,
+) {
     let half_w = window.width() / 2.0;
     let half_h = window.height() / 2.0;
     let mut rng = rand::thread_rng();
@@ -46,6 +57,25 @@ fn spawn_asteroids(
             Velocity(vel),
             AngularVelocity(ang_vel),
         ));
+    }
+}
+
+fn handle_asteroid_reset(
+    mut events: EventReader<ResetGameEvent>,
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+    asteroids: Query<Entity, With<Asteroid>>,
+    window: Query<&Window, With<PrimaryWindow>>,
+) {
+    for _ in events.read() {
+        for entity in &asteroids {
+            commands.entity(entity).despawn();
+        }
+        let Ok(window) = window.get_single() else {
+            return;
+        };
+        spawn_asteroids_into(&mut commands, &mut meshes, &mut materials, window);
     }
 }
 

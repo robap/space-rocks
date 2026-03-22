@@ -295,7 +295,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Handle `ResetGameEvent` to despawn all asteroids and spawn a fresh set. Requires group 4.
 
-- [ ] **7.1** Write `fn handle_asteroid_reset` system:
+- [x] **7.1** Write `fn handle_asteroid_reset` system:
   ```rust
   fn handle_asteroid_reset(
       mut events: EventReader<ResetGameEvent>,
@@ -310,9 +310,9 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
     - Despawn all entities in `asteroids` query.
     - Call the existing `spawn_asteroids_into` helper (see 7.2) to spawn a fresh set.
 
-- [ ] **7.2** Extract the body of `fn spawn_asteroids` into a helper `fn spawn_asteroids_into(commands, meshes, materials, window)` that both the `Startup` system and `handle_asteroid_reset` call.
+- [x] **7.2** Extract the body of `fn spawn_asteroids` into a helper `fn spawn_asteroids_into(commands, meshes, materials, window)` that both the `Startup` system and `handle_asteroid_reset` call.
 
-- [ ] **7.3** Register `handle_asteroid_reset` in `AsteroidPlugin::build`:
+- [x] **7.3** Register `handle_asteroid_reset` in `AsteroidPlugin::build`:
   ```rust
   .add_systems(Update, handle_asteroid_reset)
   ```
