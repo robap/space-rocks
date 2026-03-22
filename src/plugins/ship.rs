@@ -16,7 +16,8 @@ impl Plugin for ShipPlugin {
                 ship_movement,
                 wrap_ship,
                 ship_shoot,
-            ),
+            )
+                .in_set(GameSet::Movement),
         );
     }
 }

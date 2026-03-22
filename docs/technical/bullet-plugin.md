@@ -53,7 +53,7 @@ pub const BULLET_RADIUS: f32 = 3.0;    // collision radius — used by Collision
 | `wrap_bullets` | `Update` | Teleports bullet to opposite edge when it exits the screen |
 | `bullet_lifetime` | `Update` | Ticks `BulletLifetime` timer; despawns entity when timer finishes |
 
-Registration order within the `Update` tuple: `(move_bullets, wrap_bullets, bullet_lifetime)`. Bevy does not guarantee execution order within a tuple, but all three are independent of each other within a frame — no ordering dependency among them.
+System set assignments: `move_bullets` and `wrap_bullets` are in `GameSet::Movement`; `bullet_lifetime` is in `GameSet::Despawn`. `GameSet::Despawn` runs after `GameSet::Collision` (configured in `main.rs`), so collision detection always sees current bullet positions and processes hits before lifetime despawn runs.
 
 ---
 
@@ -92,8 +92,6 @@ Bullets are spawned by `ShipPlugin::ship_shoot` and consumed (despawned) either 
 
 ## Known Constraints and Gotchas
 
-- **Double-despawn risk with CollisionPlugin.** Both `bullet_lifetime` and `CollisionPlugin::bullet_asteroid_collision` (task 7) can despawn the same bullet entity in the same frame — e.g., a bullet expires on the same frame it hits an asteroid. In Bevy 0.15, calling `commands.entity(e).despawn()` on an already-despawned entity panics. `CollisionPlugin` must guard against this. The plan notes for task 7 recommend collecting all hits into a `HashSet` before despawning, or using `try_despawn()` if available.
-
-- **`BulletPlugin` systems have no explicit ordering relative to `CollisionPlugin`.** `CollisionPlugin` must declare `.after(move_bullets)` ordering (or use `GameSet` labels) so collision detection uses post-movement positions. Using `GameSet` labels (defined in `main.rs`) is preferred over referencing `move_bullets` directly, since that would require making `move_bullets` `pub`.
+- **Bullet double-despawn edge case.** If a bullet hits an asteroid in `GameSet::Collision` and its lifetime timer also expires in the same frame's `GameSet::Despawn`, both `bullet_asteroid_collision` and `bullet_lifetime` queue a despawn for the same entity. Since commands are deferred, the entity still exists in the query when `Despawn` runs. In Bevy 0.15 this is a safe no-op (the second despawn silently does nothing), but verify if upgrading Bevy versions. See [CollisionPlugin — Technical Reference](collision-plugin.md) for details.
 
 - **`wrap_bullets` reads `PrimaryWindow` every frame.** If `get_single()` fails (no primary window), the system returns early and skips wrapping that frame. This is a safe fallback — bullets continue moving and will be despawned by `bullet_lifetime` regardless.

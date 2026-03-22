@@ -1,6 +1,3 @@
-// These constants are the shared plugin API — used by tasks 4–7, not yet by task 2.
-#![allow(dead_code)]
-
 pub const SHIP_ROTATION_SPEED: f32 = 3.0;
 pub const SHIP_THRUST: f32 = 200.0;
 pub const SHIP_MAX_SPEED: f32 = 400.0;

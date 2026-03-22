@@ -144,10 +144,14 @@ pub const SHIP_DRAG: f32 = 0.98;             // velocity multiplier per frame
 
 pub const BULLET_SPEED: f32 = 500.0;         // pixels/sec
 pub const BULLET_LIFETIME: f32 = 1.2;        // seconds
+pub const BULLET_RADIUS: f32 = 3.0;          // pixels — used for collision (updated post-implementation)
+pub const BULLET_SPAWN_OFFSET: f32 = 22.0;   // pixels forward from ship nose (updated post-implementation)
 
 pub const ASTEROID_INITIAL_COUNT: usize = 6; // large asteroids at start
 pub const ASTEROID_MIN_SPEED: f32 = 40.0;
 pub const ASTEROID_MAX_SPEED: f32 = 120.0;
+pub const ASTEROID_MIN_ANGULAR_VELOCITY: f32 = -1.5; // rad/s (updated post-implementation)
+pub const ASTEROID_MAX_ANGULAR_VELOCITY: f32 = 1.5;  // rad/s (updated post-implementation)
 ```
 
 ### Plugin structure
@@ -167,15 +171,14 @@ Each plugin is a `struct` implementing `bevy::app::Plugin`. Plugins register the
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_plugins((
-            ShipPlugin,
-            AsteroidPlugin,
-            BulletPlugin,
-            CollisionPlugin,
-        ))
+        .add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin))
+        .configure_sets(Update, (GameSet::Movement, GameSet::Collision, GameSet::Despawn).chain())
+        .add_systems(Startup, setup_camera)
         .run();
 }
 ```
+
+System set ordering (updated post-implementation): `GameSet` is defined in `components.rs` with three variants — `Movement`, `Collision`, `Despawn` — chained in that order in the `Update` schedule. All movement systems run before collision detection; bullet lifetime despawn runs last.
 
 ---
 

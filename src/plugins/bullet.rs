@@ -6,7 +6,11 @@ pub struct BulletPlugin;
 
 impl Plugin for BulletPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (move_bullets, wrap_bullets, bullet_lifetime));
+        app.add_systems(
+            Update,
+            (move_bullets, wrap_bullets).in_set(GameSet::Movement),
+        )
+        .add_systems(Update, bullet_lifetime.in_set(GameSet::Despawn));
     }
 }
 

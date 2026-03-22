@@ -1,7 +1,11 @@
-// These types are the shared plugin API — used by tasks 4–7, not yet by task 2.
-#![allow(dead_code)]
-
 use bevy::prelude::*;
+
+#[derive(SystemSet, Debug, Clone, PartialEq, Eq, Hash)]
+pub enum GameSet {
+    Movement,
+    Collision,
+    Despawn,
+}
 
 #[derive(Component)]
 pub struct Player;

@@ -1,7 +1,7 @@
 # Plan: Project Bootstrap & MVP
 
 **Spec:** `specs/project-bootstrap.md`
-**Status:** Not started
+**Status:** Complete ✓
 **Created:** 2026-03-22
 
 ---
@@ -250,8 +250,8 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Detect bullet↔asteroid collisions each frame, despawn both, and spawn two child asteroids (or none for Small). Requires groups 4, 5, and 6.
 
-- [ ] **7.1** In `src/plugins/collision.rs`, add `use` imports: `bevy::prelude::*`, `crate::components::*`, `crate::config::*`
-- [ ] **7.2** Write `fn bullet_asteroid_collision` update system:
+- [x] **7.1** In `src/plugins/collision.rs`, add `use` imports: `bevy::prelude::*`, `crate::components::*`, `crate::config::*`
+- [x] **7.2** Write `fn bullet_asteroid_collision` update system:
   ```rust
   fn bullet_asteroid_collision(
       mut commands: Commands,
@@ -270,13 +270,13 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
         - `commands.entity(asteroid_entity).despawn()`
         - Call `spawn_split_asteroids(&mut commands, &mut meshes, &mut materials, asteroid_transform.translation, asteroid.size)`
         - `break` inner loop (bullet is consumed)
-- [ ] **7.3** Write helper `fn spawn_split_asteroids(commands, meshes, materials, position: Vec3, size: AsteroidSize)`:
+- [x] **7.3** Write helper `fn spawn_split_asteroids(commands, meshes, materials, position: Vec3, size: AsteroidSize)`:
   - If `size.split()` is `None`: return (Small — fully destroyed)
   - Otherwise let `child_size = size.split().unwrap()`
   - Spawn 2 child asteroids at `position` with:
     - Diverging velocities: pick a random base direction, then offset `±30°` for the two children, scaled to a speed between `ASTEROID_MIN_SPEED` and `ASTEROID_MAX_SPEED`
     - `Mesh2d(meshes.add(Circle::new(child_size.radius())))`, `MeshMaterial2d(materials.add(Color::srgb(0.6, 0.6, 0.6)))`, `Transform::from_translation(position)`, `Asteroid { size: child_size }`, `Velocity(vel)`, `AngularVelocity(ang_vel)`
-- [ ] **7.4** In `CollisionPlugin::build`, register:
+- [x] **7.4** In `CollisionPlugin::build`, register:
   - `.add_systems(Update, bullet_asteroid_collision)`
   - Ensure this runs after `move_bullets` and `move_asteroids` — use `.after(move_bullets)` and `.after(move_asteroids)` or rely on set ordering
 
