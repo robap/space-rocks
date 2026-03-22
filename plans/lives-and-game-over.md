@@ -248,13 +248,13 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Remove the Startup spawn, centralise all ship spawning behind `SpawnShipEvent`, and handle `ResetGameEvent` to despawn the old ship. Requires group 5.
 
-- [ ] **6.1** In `ShipPlugin::build`:
+- [x] **6.1** In `ShipPlugin::build`:
   - Remove `.add_systems(Startup, spawn_ship)`.
   - Register `app.add_event::<SpawnShipEvent>()`.
   - Add `.add_systems(Update, spawn_ship_from_event)`.
   - Add `.add_systems(Update, handle_ship_reset)`.
 
-- [ ] **6.2** Rename existing `fn spawn_ship` to `fn spawn_ship_entity(commands, meshes, materials)` (a plain helper, not a system) and add an `invincible: bool` parameter. When `invincible` is true, attach:
+- [x] **6.2** Rename existing `fn spawn_ship` to `fn spawn_ship_entity(commands, meshes, materials)` (a plain helper, not a system) and add an `invincible: bool` parameter. When `invincible` is true, attach:
   ```rust
   Invincible {
       timer: Timer::from_seconds(SHIP_INVINCIBILITY_SECS, TimerMode::Once),
@@ -262,7 +262,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **6.3** Write `fn spawn_ship_from_event` system:
+- [x] **6.3** Write `fn spawn_ship_from_event` system:
   ```rust
   fn spawn_ship_from_event(
       mut commands: Commands,
@@ -273,7 +273,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   ```
   - For each event: call `spawn_ship_entity(&mut commands, &mut meshes, &mut materials, event.invincible)`.
 
-- [ ] **6.4** Write `fn handle_ship_reset` system:
+- [x] **6.4** Write `fn handle_ship_reset` system:
   ```rust
   fn handle_ship_reset(
       mut events: EventReader<ResetGameEvent>,
@@ -285,7 +285,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   - For each `ResetGameEvent`: if `player.get_single()` is `Ok(entity)`, `commands.entity(entity).despawn()`.
   - Fire `SpawnShipEvent { invincible: false }`.
 
-- [ ] **6.5** Gate ship movement systems with `.run_if(in_state(GameState::Playing))` so the ship stops accepting input while `Dead` or `GameOver`.
+- [x] **6.5** Gate ship movement systems with `.run_if(in_state(GameState::Playing))` so the ship stops accepting input while `Dead` or `GameOver`.
 
 *Checkpoint: `cargo run` — no ship on attract screen. Pressing any key spawns a fresh ship and asteroids reset.*
 

@@ -8,31 +8,36 @@ pub struct ShipPlugin;
 
 impl Plugin for ShipPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_ship).add_systems(
-            Update,
-            (
-                ship_rotation,
-                ship_thrust,
-                ship_movement,
-                wrap_ship,
-                ship_shoot,
-            )
-                .in_set(GameSet::Movement),
-        );
+        app.add_event::<SpawnShipEvent>()
+            .add_systems(Update, spawn_ship_from_event)
+            .add_systems(Update, handle_ship_reset)
+            .add_systems(
+                Update,
+                (
+                    ship_rotation,
+                    ship_thrust,
+                    ship_movement,
+                    wrap_ship,
+                    ship_shoot,
+                )
+                    .in_set(GameSet::Movement)
+                    .run_if(in_state(GameState::Playing)),
+            );
     }
 }
 
-fn spawn_ship(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
+fn spawn_ship_entity(
+    commands: &mut Commands,
+    meshes: &mut ResMut<Assets<Mesh>>,
+    materials: &mut ResMut<Assets<ColorMaterial>>,
+    invincible: bool,
 ) {
     let triangle = Triangle2d::new(
         Vec2::new(0.0, 20.0),
         Vec2::new(-12.0, -14.0),
         Vec2::new(12.0, -14.0),
     );
-    commands.spawn((
+    let mut entity = commands.spawn((
         Mesh2d(meshes.add(triangle)),
         MeshMaterial2d(materials.add(Color::srgb(0.8, 0.9, 1.0))),
         Transform::from_xyz(0.0, 0.0, 1.0),
@@ -40,6 +45,37 @@ fn spawn_ship(
         Velocity(Vec2::ZERO),
         Thruster::default(),
     ));
+    if invincible {
+        entity.insert(Invincible {
+            timer: Timer::from_seconds(SHIP_INVINCIBILITY_SECS, TimerMode::Once),
+            blink_timer: Timer::from_seconds(SHIP_BLINK_INTERVAL_SECS, TimerMode::Repeating),
+        });
+    }
+}
+
+fn spawn_ship_from_event(
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+    mut events: EventReader<SpawnShipEvent>,
+) {
+    for event in events.read() {
+        spawn_ship_entity(&mut commands, &mut meshes, &mut materials, event.invincible);
+    }
+}
+
+fn handle_ship_reset(
+    mut events: EventReader<ResetGameEvent>,
+    mut commands: Commands,
+    player: Query<Entity, With<Player>>,
+    mut spawn_events: EventWriter<SpawnShipEvent>,
+) {
+    for _ in events.read() {
+        if let Ok(entity) = player.get_single() {
+            commands.entity(entity).despawn();
+        }
+        spawn_events.send(SpawnShipEvent { invincible: false });
+    }
 }
 
 fn ship_rotation(
