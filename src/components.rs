@@ -25,7 +25,15 @@ pub struct Invincible {
 pub struct RespawnTimer(pub Timer);
 
 #[derive(Event)]
+pub struct BulletFiredEvent;
+
+#[derive(Event)]
 pub struct ShipDestroyedEvent;
+
+#[derive(Event)]
+pub struct AsteroidDestroyedEvent {
+    pub size: AsteroidSize,
+}
 
 #[derive(Event)]
 pub struct ResetGameEvent;

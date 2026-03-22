@@ -37,12 +37,12 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
 
 > Add `BulletFiredEvent` and `AsteroidDestroyedEvent` to the shared types file. They are defined here so both senders and the listener can import from `crate::components`.
 
-- [ ] **2.1** In `src/components.rs`, add:
+- [x] **2.1** In `src/components.rs`, add:
   ```rust
   #[derive(Event)]
   pub struct BulletFiredEvent;
   ```
-- [ ] **2.2** In `src/components.rs`, add:
+- [x] **2.2** In `src/components.rs`, add:
   ```rust
   #[derive(Event)]
   pub struct AsteroidDestroyedEvent {
