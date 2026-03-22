@@ -7,6 +7,7 @@
 - [AsteroidPlugin](technical/asteroid-plugin.md) — asteroid spawning, movement, screen wrapping, and split data model
 - [BulletPlugin](technical/bullet-plugin.md) — bullet movement, screen wrapping, lifetime countdown, and despawn
 - [CollisionPlugin](technical/collision-plugin.md) — bullet↔asteroid hit detection, asteroid splitting, system set ordering
+- [SoundPlugin](technical/sound-plugin.md) — audio asset loading, one-shot and looping sound systems, BulletFiredEvent and AsteroidDestroyedEvent wiring
 
 ## User
 

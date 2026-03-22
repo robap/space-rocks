@@ -1,7 +1,7 @@
 # Plan: Sound Effects
 
 **Spec:** `specs/sound-effects.md`
-**Status:** Not started
+**Status:** Complete ✓
 **Created:** 2026-03-22
 
 ---
@@ -147,8 +147,8 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
 
 > Register the new module and add `SoundPlugin` to the Bevy app. After this group the feature is fully integrated.
 
-- [ ] **5.1** In `src/plugins/mod.rs`, add `pub mod sound;`.
-- [ ] **5.2** In `src/main.rs`, import `plugins::sound::SoundPlugin` and add `SoundPlugin` to the `add_plugins((...))` call alongside the other plugins.
+- [x] **5.1** In `src/plugins/mod.rs`, add `pub mod sound;`.
+- [x] **5.2** In `src/main.rs`, import `plugins::sound::SoundPlugin` and add `SoundPlugin` to the `add_plugins((...))` call alongside the other plugins.
 
 *Checkpoint: `cargo build` compiles cleanly. `cargo run` launches the game. With sound files present in `assets/sounds/`, all sound effects play correctly. Without the files, the game runs silently (Bevy logs a warning for missing assets but does not panic).*
 

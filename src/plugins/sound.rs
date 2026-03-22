@@ -34,10 +34,7 @@ fn play_shoot_sound(
     mut events: EventReader<BulletFiredEvent>,
 ) {
     for _ in events.read() {
-        commands.spawn((
-            AudioPlayer(assets.shoot.clone()),
-            PlaybackSettings::DESPAWN_ON_END,
-        ));
+        commands.spawn((AudioPlayer(assets.shoot.clone()), PlaybackSettings::DESPAWN));
     }
 }
 
@@ -52,7 +49,7 @@ fn play_asteroid_explosion(
             AsteroidSize::Medium => assets.explosion_medium.clone(),
             AsteroidSize::Small => assets.explosion_small.clone(),
         };
-        commands.spawn((AudioPlayer(handle), PlaybackSettings::DESPAWN_ON_END));
+        commands.spawn((AudioPlayer(handle), PlaybackSettings::DESPAWN));
     }
 }
 
@@ -64,7 +61,7 @@ fn play_ship_explosion(
     for _ in events.read() {
         commands.spawn((
             AudioPlayer(assets.ship_explosion.clone()),
-            PlaybackSettings::DESPAWN_ON_END,
+            PlaybackSettings::DESPAWN,
         ));
     }
 }
@@ -82,10 +79,7 @@ fn manage_thruster_sound(
 
     if is_active && thruster_entity.0.is_none() {
         let entity = commands
-            .spawn((
-                AudioPlayer(assets.thruster.clone()),
-                PlaybackSettings::LOOP,
-            ))
+            .spawn((AudioPlayer(assets.thruster.clone()), PlaybackSettings::LOOP))
             .id();
         thruster_entity.0 = Some(entity);
     } else if !is_active {

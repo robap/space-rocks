@@ -17,7 +17,7 @@ Space Rocks is a single-binary Bevy 0.15 application. The game loop is structure
 ```
 src/
   main.rs          — App setup, plugin registration, system set configuration, camera
-  components.rs    — All shared component/marker types, GameSet enum
+  components.rs    — All shared component/marker types, events, GameSet enum
   config.rs        — All tunable game constants
   plugins/
     mod.rs         — pub mod declarations
@@ -25,6 +25,9 @@ src/
     asteroid.rs    — AsteroidPlugin
     bullet.rs      — BulletPlugin
     collision.rs   — CollisionPlugin
+    game_state.rs  — GameStatePlugin
+    hud.rs         — HudPlugin
+    sound.rs       — SoundPlugin
 ```
 
 ---
@@ -35,7 +38,11 @@ src/
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin))
+        .init_state::<GameState>()
+        .add_plugins((
+            ShipPlugin, AsteroidPlugin, BulletPlugin,
+            CollisionPlugin, GameStatePlugin, HudPlugin, SoundPlugin,
+        ))
         .configure_sets(
             Update,
             (GameSet::Movement, GameSet::Collision, GameSet::Despawn).chain(),
@@ -45,7 +52,7 @@ fn main() {
 }
 ```
 
-`DefaultPlugins` provides the Bevy window, renderer, input, and asset systems. `bevy_audio` is disabled in `Cargo.toml` (no ALSA dependency needed on Linux for a sound-free MVP).
+`DefaultPlugins` provides the Bevy window, renderer, input, and asset systems. `Cargo.toml` uses `default-features = false` with an explicit feature list including `bevy_audio` and `wav`.
 
 `setup_camera` spawns a `Camera2d` entity — required for anything to render.
 
@@ -151,7 +158,7 @@ Z-values: ship at `z=1.0`, asteroids and bullets at `z=0.0`. Ship always renders
 
 - **`Bevy 0.15` — no bundle types.** `SpriteBundle`, `MaterialMesh2dBundle` are removed. Always use the required-components spawn pattern shown above.
 
-- **`DefaultPlugins` minus audio.** `Cargo.toml` sets `default-features = false` with explicit feature list to exclude `bevy_audio`. If adding audio in a future feature, re-enable the audio feature.
+- **`Cargo.toml` feature list.** Uses `default-features = false` with explicit features. Both `bevy_audio` and `wav` are required for audio — `bevy_audio` alone is insufficient because `AudioSource` is only registered by `AudioPlugin` when at least one codec feature (`mp3`, `flac`, `wav`, or `vorbis`) is also present.
 
 - **`GameSet` must be imported wherever systems are registered.** All plugins do `use crate::components::*` which picks it up. `main.rs` imports it explicitly as `use components::GameSet`.
 

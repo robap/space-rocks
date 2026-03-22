@@ -40,7 +40,7 @@ The game is visually functional but silent. Sound effects complete the arcade fe
 
 ## Sound Files
 
-Generate these six files using [jsfxr](https://sfxr.me) and place them in `assets/sounds/`:
+These six files are included in `assets/sounds/` (generated via [jsfxr](https://sfxr.me)):
 
 | File | Category hint in jsfxr |
 |------|------------------------|
@@ -112,7 +112,7 @@ All sound systems run in `Update` with no ordering constraints relative to `Game
 ```
 src/plugins/sound.rs   — SoundPlugin, all 5 systems above
 src/components.rs      — add BulletFiredEvent, AsteroidDestroyedEvent
-src/plugins/bullet.rs  — send BulletFiredEvent in ship_shoot
+src/plugins/ship.rs    — send BulletFiredEvent in ship_shoot (updated post-implementation: spec had wrong filename)
 src/plugins/collision.rs — send AsteroidDestroyedEvent in bullet_asteroid_collision
 ```
 
@@ -122,12 +122,12 @@ src/plugins/collision.rs — send AsteroidDestroyedEvent in bullet_asteroid_coll
 
 ### One-shot sounds
 
-Spawn a temporary entity with `AudioPlayer(handle.clone())` and `PlaybackSettings::DESPAWN_ON_END`. Bevy removes the entity automatically when playback finishes.
+Spawn a temporary entity with `AudioPlayer(handle.clone())` and `PlaybackSettings::DESPAWN`. Bevy removes the entity automatically when playback finishes.
 
 ```rust
 commands.spawn((
     AudioPlayer(assets.shoot.clone()),
-    PlaybackSettings::DESPAWN_ON_END,
+    PlaybackSettings::DESPAWN,
 ));
 ```
 
@@ -160,11 +160,12 @@ let handle = match event.size {
 
 ## Cargo.toml change
 
-Add `bevy_audio` to the enabled features:
+Add `bevy_audio` and `wav` to the enabled features (updated post-implementation: `bevy_audio` alone is insufficient — `AudioSource` is only registered by `AudioPlugin` when at least one codec feature is also enabled):
 
 ```toml
 bevy = { version = "0.15", default-features = false, features = [
     "bevy_audio",       // ← add this
+    "wav",              // ← also required: enables AudioSource registration
     "bevy_core_pipeline",
     ...
 ] }

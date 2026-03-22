@@ -43,3 +43,16 @@ Large grey asteroids drift across the screen at random. They wrap around the edg
 - **Shoot a small asteroid** → it's destroyed completely.
 
 The smaller pieces move faster and spread apart when they split, so clearing a field gets busier before it gets quieter.
+
+---
+
+## Sound
+
+Every action has a sound. You'll hear:
+
+- A **laser shot** each time you fire.
+- An **explosion** when an asteroid is destroyed — large asteroids make a bigger boom than small ones.
+- A **thruster hum** while you're holding the thrust key. It stops the moment you let go.
+- A **ship explosion** if an asteroid hits you.
+
+Sound files are included in `assets/sounds/` and play automatically.
