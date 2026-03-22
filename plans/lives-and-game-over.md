@@ -116,7 +116,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Create minimal-but-compiling stubs for the two new plugin files so the module tree is valid before filling in the systems. Requires group 2.
 
-- [ ] **3.1** Create `src/plugins/game_state.rs` with a stub:
+- [x] **3.1** Create `src/plugins/game_state.rs` with a stub:
   ```rust
   use bevy::prelude::*;
   use crate::components::*;
@@ -129,7 +129,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **3.2** Create `src/plugins/hud.rs` with a stub:
+- [x] **3.2** Create `src/plugins/hud.rs` with a stub:
   ```rust
   use bevy::prelude::*;
   use crate::components::*;
@@ -141,7 +141,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **3.3** In `src/plugins/mod.rs`, add `pub mod game_state;` and `pub mod hud;`.
+- [x] **3.3** In `src/plugins/mod.rs`, add `pub mod game_state;` and `pub mod hud;`.
 
 *Checkpoint: `cargo check` compiles cleanly with new modules visible.*
 
