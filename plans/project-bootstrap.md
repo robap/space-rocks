@@ -95,8 +95,8 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Spawn the 2D camera needed to see anything rendered. Requires group 1.
 
-- [ ] **3.1** In `src/main.rs`, add a startup system `fn setup_camera(mut commands: Commands)` that spawns `commands.spawn(Camera2d)`
-- [ ] **3.2** Register `setup_camera` in the `App` via `.add_systems(Startup, setup_camera)`
+- [x] **3.1** In `src/main.rs`, add a startup system `fn setup_camera(mut commands: Commands)` that spawns `commands.spawn(Camera2d)`
+- [x] **3.2** Register `setup_camera` in the `App` via `.add_systems(Startup, setup_camera)`
 
 *Checkpoint: `cargo run` opens a black window — no content yet, but Bevy's 2D camera is active.*
 
