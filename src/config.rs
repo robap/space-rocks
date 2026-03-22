@@ -10,3 +10,5 @@ pub const BULLET_LIFETIME: f32 = 1.2;
 pub const ASTEROID_INITIAL_COUNT: usize = 6;
 pub const ASTEROID_MIN_SPEED: f32 = 40.0;
 pub const ASTEROID_MAX_SPEED: f32 = 120.0;
+pub const ASTEROID_MIN_ANGULAR_VELOCITY: f32 = -1.5; // rad/s
+pub const ASTEROID_MAX_ANGULAR_VELOCITY: f32 = 1.5; // rad/s

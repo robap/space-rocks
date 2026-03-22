@@ -16,3 +16,4 @@ bevy = { version = "0.15", default-features = false, features = [
     "tonemapping_luts",
     "x11",
 ] }
+rand = "0.8"

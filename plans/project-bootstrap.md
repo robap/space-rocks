@@ -106,9 +106,9 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Implement the full asteroid lifecycle: initial spawn with random velocity, per-frame movement, and screen wrapping. Requires groups 2 and 3.
 
-- [ ] **4.1** Add `rand = "0.8"` to `Cargo.toml` `[dependencies]` (needed for random spawn positions/velocities)
-- [ ] **4.2** In `src/plugins/asteroid.rs`, add `use` imports: `bevy::prelude::*`, `bevy::window::PrimaryWindow`, `rand::Rng`, `crate::components::*`, `crate::config::*`
-- [ ] **4.3** Write `fn spawn_asteroids` startup system signature:
+- [x] **4.1** Add `rand = "0.8"` to `Cargo.toml` `[dependencies]` (needed for random spawn positions/velocities)
+- [x] **4.2** In `src/plugins/asteroid.rs`, add `use` imports: `bevy::prelude::*`, `bevy::window::PrimaryWindow`, `rand::Rng`, `crate::components::*`, `crate::config::*`
+- [x] **4.3** Write `fn spawn_asteroids` startup system signature:
   ```rust
   fn spawn_asteroids(
       mut commands: Commands,
@@ -124,7 +124,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
     - Pick a random velocity between `ASTEROID_MIN_SPEED` and `ASTEROID_MAX_SPEED` in a random direction
     - Pick a random angular velocity between `-1.5` and `1.5` rad/s
     - Spawn entity with: `Mesh2d(meshes.add(Circle::new(AsteroidSize::Large.radius())))`, `MeshMaterial2d(materials.add(Color::srgb(0.6, 0.6, 0.6)))`, `Transform::from_xyz(x, y, 0.0)`, `Asteroid { size: AsteroidSize::Large }`, `Velocity(vel)`, `AngularVelocity(ang_vel)`
-- [ ] **4.4** Write `fn move_asteroids` update system:
+- [x] **4.4** Write `fn move_asteroids` update system:
   ```rust
   fn move_asteroids(
       time: Res<Time>,
@@ -133,7 +133,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   ```
   - Each frame: `transform.translation += vel.0.extend(0.0) * time.delta_secs()`
   - Each frame: `transform.rotate_z(ang_vel.0 * time.delta_secs())`
-- [ ] **4.5** Write `fn wrap_asteroids` update system:
+- [x] **4.5** Write `fn wrap_asteroids` update system:
   ```rust
   fn wrap_asteroids(
       window: Query<&Window, With<PrimaryWindow>>,
@@ -142,7 +142,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   ```
   - Get half-width and half-height from the window
   - Wrap `transform.translation.x` and `.y` if they exceed `±half_width` / `±half_height`
-- [ ] **4.6** In `AsteroidPlugin::build`, register systems:
+- [x] **4.6** In `AsteroidPlugin::build`, register systems:
   - `.add_systems(Startup, spawn_asteroids)`
   - `.add_systems(Update, (move_asteroids, wrap_asteroids))`
 
