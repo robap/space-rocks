@@ -154,11 +154,11 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Implement the player ship: spawn with triangle mesh, thrust-based movement with drag, rotation, screen wrap, and bullet spawning on Space. Requires groups 2 and 3.
 
-- [ ] **5.1** In `src/plugins/ship.rs`, add `use` imports: `bevy::prelude::*`, `bevy::window::PrimaryWindow`, `crate::components::*`, `crate::config::*`
-- [ ] **5.2** Write `fn spawn_ship` startup system:
+- [x] **5.1** In `src/plugins/ship.rs`, add `use` imports: `bevy::prelude::*`, `bevy::window::PrimaryWindow`, `crate::components::*`, `crate::config::*`
+- [x] **5.2** Write `fn spawn_ship` startup system:
   - Build a triangle `Mesh` pointing up (+Y) using `Triangle2d::new(Vec2::new(0.0, 20.0), Vec2::new(-12.0, -14.0), Vec2::new(12.0, -14.0))`
   - Spawn entity with: `Mesh2d(meshes.add(triangle))`, `MeshMaterial2d(materials.add(Color::srgb(0.8, 0.9, 1.0)))`, `Transform::from_xyz(0.0, 0.0, 1.0)`, `Player`, `Velocity(Vec2::ZERO)`, `Thruster::default()`
-- [ ] **5.3** Write `fn ship_rotation` update system:
+- [x] **5.3** Write `fn ship_rotation` update system:
   ```rust
   fn ship_rotation(
       time: Res<Time>,
@@ -168,7 +168,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   ```
   - Left (A or ArrowLeft): `transform.rotate_z(SHIP_ROTATION_SPEED * time.delta_secs())`
   - Right (D or ArrowRight): `transform.rotate_z(-SHIP_ROTATION_SPEED * time.delta_secs())`
-- [ ] **5.4** Write `fn ship_thrust` update system:
+- [x] **5.4** Write `fn ship_thrust` update system:
   ```rust
   fn ship_thrust(
       time: Res<Time>,
@@ -183,7 +183,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
     - `thruster.active = true`
   - Else: `thruster.active = false`
   - Apply drag every frame: `velocity.0 *= SHIP_DRAG`
-- [ ] **5.5** Write `fn ship_movement` update system:
+- [x] **5.5** Write `fn ship_movement` update system:
   ```rust
   fn ship_movement(
       time: Res<Time>,
@@ -191,8 +191,8 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   )
   ```
   - `transform.translation += velocity.0.extend(0.0) * time.delta_secs()`
-- [ ] **5.6** Write `fn wrap_ship` update system — same edge-wrapping logic as `wrap_asteroids` but queries `With<Player>`
-- [ ] **5.7** Write `fn ship_shoot` update system:
+- [x] **5.6** Write `fn wrap_ship` update system — same edge-wrapping logic as `wrap_asteroids` but queries `With<Player>`
+- [x] **5.7** Write `fn ship_shoot` update system:
   ```rust
   fn ship_shoot(
       mut commands: Commands,
@@ -208,7 +208,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
     - Spawn position = `transform.translation + (forward * 22.0).extend(0.0)` (past ship nose)
     - Bullet velocity = `ship_velocity.0 + forward * BULLET_SPEED`
     - Spawn entity with: `Mesh2d(meshes.add(Circle::new(3.0)))`, `MeshMaterial2d(materials.add(Color::srgb(1.0, 1.0, 0.5)))`, `Transform::from_translation(spawn_pos)`, `Bullet`, `Velocity(bullet_vel)`, `BulletLifetime(Timer::from_seconds(BULLET_LIFETIME, TimerMode::Once))`
-- [ ] **5.8** In `ShipPlugin::build`, register systems:
+- [x] **5.8** In `ShipPlugin::build`, register systems:
   - `.add_systems(Startup, spawn_ship)`
   - `.add_systems(Update, (ship_rotation, ship_thrust, ship_movement, wrap_ship, ship_shoot))`
 
