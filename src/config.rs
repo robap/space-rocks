@@ -16,3 +16,16 @@ pub const PLAYER_STARTING_LIVES: u32 = 3;
 pub const SHIP_RESPAWN_DELAY_SECS: f32 = 1.5;
 pub const SHIP_INVINCIBILITY_SECS: f32 = 2.0;
 pub const SHIP_BLINK_INTERVAL_SECS: f32 = 0.1;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn respawn_and_invincibility_constants_are_positive() {
+        assert!(SHIP_RESPAWN_DELAY_SECS > 0.0);
+        assert!(SHIP_INVINCIBILITY_SECS > 0.0);
+        assert!(SHIP_BLINK_INTERVAL_SECS > 0.0);
+        assert!(SHIP_BLINK_INTERVAL_SECS < SHIP_INVINCIBILITY_SECS);
+    }
+}

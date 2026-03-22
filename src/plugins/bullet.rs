@@ -31,18 +31,7 @@ fn wrap_bullets(
     let half_h = window.height() / 2.0;
 
     for mut transform in &mut query {
-        if transform.translation.x > half_w {
-            transform.translation.x = -half_w;
-        }
-        if transform.translation.x < -half_w {
-            transform.translation.x = half_w;
-        }
-        if transform.translation.y > half_h {
-            transform.translation.y = -half_h;
-        }
-        if transform.translation.y < -half_h {
-            transform.translation.y = half_h;
-        }
+        wrap_position(&mut transform.translation, half_w, half_h);
     }
 }
 

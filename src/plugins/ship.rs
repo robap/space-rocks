@@ -144,21 +144,6 @@ fn wrap_ship(
     wrap_position(&mut transform.translation, half_w, half_h);
 }
 
-fn wrap_position(translation: &mut Vec3, half_w: f32, half_h: f32) {
-    if translation.x > half_w {
-        translation.x = -half_w;
-    }
-    if translation.x < -half_w {
-        translation.x = half_w;
-    }
-    if translation.y > half_h {
-        translation.y = -half_h;
-    }
-    if translation.y < -half_h {
-        translation.y = half_h;
-    }
-}
-
 fn ship_shoot(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -216,40 +201,5 @@ mod tests {
         let clamped = clamp_to_max_speed(vel, 400.0);
         assert!((clamped.length() - 400.0).abs() < 1e-4);
         assert!((clamped.x - clamped.y).abs() < 1e-4);
-    }
-
-    #[test]
-    fn test_wrap_position_past_right_edge_wraps_to_left() {
-        let mut pos = Vec3::new(600.0, 0.0, 0.0);
-        wrap_position(&mut pos, 500.0, 300.0);
-        assert_eq!(pos.x, -500.0);
-    }
-
-    #[test]
-    fn test_wrap_position_past_left_edge_wraps_to_right() {
-        let mut pos = Vec3::new(-600.0, 0.0, 0.0);
-        wrap_position(&mut pos, 500.0, 300.0);
-        assert_eq!(pos.x, 500.0);
-    }
-
-    #[test]
-    fn test_wrap_position_past_top_edge_wraps_to_bottom() {
-        let mut pos = Vec3::new(0.0, 400.0, 0.0);
-        wrap_position(&mut pos, 500.0, 300.0);
-        assert_eq!(pos.y, -300.0);
-    }
-
-    #[test]
-    fn test_wrap_position_past_bottom_edge_wraps_to_top() {
-        let mut pos = Vec3::new(0.0, -400.0, 0.0);
-        wrap_position(&mut pos, 500.0, 300.0);
-        assert_eq!(pos.y, 300.0);
-    }
-
-    #[test]
-    fn test_wrap_position_within_bounds_is_unchanged() {
-        let mut pos = Vec3::new(100.0, 150.0, 0.0);
-        wrap_position(&mut pos, 500.0, 300.0);
-        assert_eq!(pos, Vec3::new(100.0, 150.0, 0.0));
     }
 }

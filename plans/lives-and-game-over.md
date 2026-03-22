@@ -1,7 +1,7 @@
 # Plan: Lives and Game Over
 
 **Spec:** `specs/lives-and-game-over.md`
-**Status:** In progress
+**Status:** Complete ✓
 **Created:** 2026-03-22
 
 ---
@@ -177,7 +177,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   *(Note: `SpawnShipEvent` is registered by `ShipPlugin` — see group 6.)*
 
 - [x] **5.2** Write `fn insert_game_resources(mut commands: Commands)` startup system:
-  - `commands.insert_resource(Lives(PLAYER_STARTING_LIVES));`
+  - `commands.insert_resource(Lives(0));` *(attract screen has no active game; lives are set to `PLAYER_STARTING_LIVES` by `handle_attract_input` when play begins)*
   - `commands.insert_resource(Score(0));`
   - Register in `build` with `.add_systems(Startup, insert_game_resources)`.
 
@@ -392,7 +392,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Add pure-logic unit tests that require no Bevy app. Requires groups 2 and 5.
 
-- [ ] **10.1** In `src/components.rs` `#[cfg(test)]` module, add:
+- [x] **10.1** In `src/components.rs` `#[cfg(test)]` module, add:
   ```rust
   #[test]
   fn lives_decrement_reaches_zero() {
@@ -409,7 +409,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **10.2** In `src/config.rs` or a `#[cfg(test)]` module within it, add constant-presence assertions:
+- [x] **10.2** In `src/config.rs` or a `#[cfg(test)]` module within it, add constant-presence assertions:
   ```rust
   #[test]
   fn respawn_and_invincibility_constants_are_positive() {
@@ -420,7 +420,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **10.3** Run `cargo test` and confirm all existing tests still pass alongside the new ones.
+- [x] **10.3** Run `cargo test` and confirm all existing tests still pass alongside the new ones.
 
 *Checkpoint: `cargo test` — all unit tests pass. `cargo run` — full game loop works end to end.*
 

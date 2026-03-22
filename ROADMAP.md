@@ -8,7 +8,7 @@
 
 ## Post-MVP (Future)
 - [ ] Score system — points per asteroid size destroyed
-- [~] Lives and game over state (`specs/lives-and-game-over.md`)
+- [x] Lives and game over state (`specs/lives-and-game-over.md`)
 - [ ] Main menu screen
 - [ ] New wave spawning on asteroid clear
 - [ ] Sound effects
