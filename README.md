@@ -2,6 +2,16 @@
 
 An Asteroids-style game built with Rust and [Bevy](https://bevyengine.org/). Shoot rocks. Don't get hit. The rocks split.
 
+## Build Prerequisites
+
+**Linux:** requires the ALSA development headers before building:
+
+```
+sudo apt install libasound2-dev
+```
+
+**macOS and Windows:** no additional prerequisites.
+
 ## Running
 
 ```

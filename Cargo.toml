@@ -3,8 +3,8 @@ name = "space_rocks"
 edition = "2021"
 
 [dependencies]
-# Audio is out of scope for this MVP; disable bevy_audio to avoid the ALSA system dependency on Linux.
 bevy = { version = "0.15", default-features = false, features = [
+    "bevy_audio",
     "bevy_core_pipeline",
     "bevy_render",
     "bevy_sprite",

@@ -26,8 +26,8 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
 
 > Enable `bevy_audio` in the Bevy feature list and document the Linux system dependency in the README. No Rust changes yet.
 
-- [ ] **1.1** In `Cargo.toml`, add `"bevy_audio"` to the `bevy` features list and remove the comment that explained why it was disabled.
-- [ ] **1.2** In `README.md`, add a **Build Prerequisites** section (before the Running section) documenting that Linux requires `sudo apt install libasound2-dev` before building, and that macOS and Windows have no additional prerequisites.
+- [x] **1.1** In `Cargo.toml`, add `"bevy_audio"` to the `bevy` features list and remove the comment that explained why it was disabled.
+- [x] **1.2** In `README.md`, add a **Build Prerequisites** section (before the Running section) documenting that Linux requires `sudo apt install libasound2-dev` before building, and that macOS and Windows have no additional prerequisites.
 
 *Checkpoint: `cargo build` compiles cleanly with audio support enabled. No code changes yet.*
 
