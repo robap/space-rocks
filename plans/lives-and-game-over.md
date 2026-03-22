@@ -1,7 +1,7 @@
 # Plan: Lives and Game Over
 
 **Spec:** `specs/lives-and-game-over.md`
-**Status:** Not started
+**Status:** In progress
 **Created:** 2026-03-22
 
 ---
@@ -24,7 +24,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Bevy 0.15 with `default-features = false` does not include the state machine machinery; `#[derive(States)]` will fail to compile without it.
 
-- [ ] **1.1** In `Cargo.toml`, add `"bevy_state"` to the bevy features list alongside the existing ones.
+- [x] **1.1** In `Cargo.toml`, add `"bevy_state"` to the bevy features list alongside the existing ones.
 
 *Checkpoint: `cargo check` compiles cleanly. No other changes yet.*
 
