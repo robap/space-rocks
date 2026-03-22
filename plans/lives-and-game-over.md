@@ -356,15 +356,15 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Spawn HUD text and overlay text, update them from resources, and show/hide based on state. Requires groups 4 and 5.
 
-- [ ] **9.1** Write `fn spawn_hud` startup system that spawns two UI text entities (parented under a root `Node`):
+- [x] **9.1** Write `fn spawn_hud` startup system that spawns two UI text entities (parented under a root `Node`):
   - Lives text entity: `(Text::new("Lives: 3"), TextFont { font_size: 24.0, ..default() }, TextColor(Color::WHITE), Node { position_type: PositionType::Absolute, top: Val::Px(10.0), left: Val::Px(10.0), ..default() }, HudLivesText)`
   - Score text entity: `(Text::new("Score: 0"), TextFont { font_size: 24.0, ..default() }, TextColor(Color::WHITE), Node { position_type: PositionType::Absolute, top: Val::Px(10.0), right: Val::Px(10.0), ..default() }, HudScoreText)`
 
-- [ ] **9.2** Write `fn spawn_overlay_text` startup system that spawns two overlay text entities centred on screen:
+- [x] **9.2** Write `fn spawn_overlay_text` startup system that spawns two overlay text entities centred on screen:
   - "Press Any Key to Start" — visible on startup: `(Text::new("Press Any Key to Start"), TextFont { font_size: 32.0, ..default() }, TextColor(Color::WHITE), Node { position_type: PositionType::Absolute, top: Val::Percent(60.0), left: Val::Percent(50.0), ..default() }, PressAnyKeyText)`
   - "Game Over" — starts hidden (`Visibility::Hidden`): same layout at `top: Val::Percent(45.0)` with `GameOverText`
 
-- [ ] **9.3** Write `fn update_hud` system:
+- [x] **9.3** Write `fn update_hud` system:
   ```rust
   fn update_hud(
       lives: Res<Lives>,
@@ -376,13 +376,13 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   - Update text strings: `format!("Lives: {}", lives.0)` and `format!("Score: {}", score.0)`.
   - Register with `.add_systems(Update, update_hud)`.
 
-- [ ] **9.4** Write visibility toggle systems (each is a one-liner using `get_single_mut` + `if let Ok`):
+- [x] **9.4** Write visibility toggle systems (each is a one-liner using `get_single_mut` + `if let Ok`):
   - `fn show_game_over_text` → `Visibility::Visible` on `GameOverText` — register with `OnEnter(GameState::GameOver)`
   - `fn hide_game_over_text` → `Visibility::Hidden` on `GameOverText` — register with `OnEnter(GameState::Playing)`
   - `fn show_press_any_key` → `Visibility::Visible` on `PressAnyKeyText` — register with `OnEnter(GameState::Attract)` and `OnEnter(GameState::GameOver)`
   - `fn hide_press_any_key` → `Visibility::Hidden` on `PressAnyKeyText` — register with `OnEnter(GameState::Playing)`
 
-- [ ] **9.5** Register `spawn_hud` and `spawn_overlay_text` in `HudPlugin::build` with `.add_systems(Startup, ...)`.
+- [x] **9.5** Register `spawn_hud` and `spawn_overlay_text` in `HudPlugin::build` with `.add_systems(Startup, ...)`.
 
 *Checkpoint: `cargo run` — HUD shows "Lives: 3" and "Score: 0". "Press Any Key to Start" visible on attract. "Game Over" visible after 3 deaths. Pressing any key resets.*
 

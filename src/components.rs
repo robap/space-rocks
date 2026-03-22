@@ -35,20 +35,15 @@ pub struct SpawnShipEvent {
     pub invincible: bool,
 }
 
-// Used by HudPlugin (task 9)
-#[allow(dead_code)]
 #[derive(Component)]
 pub struct HudLivesText;
 
-#[allow(dead_code)]
 #[derive(Component)]
 pub struct HudScoreText;
 
-#[allow(dead_code)]
 #[derive(Component)]
 pub struct GameOverText;
 
-#[allow(dead_code)]
 #[derive(Component)]
 pub struct PressAnyKeyText;
 

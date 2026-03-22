@@ -30,7 +30,7 @@ impl Plugin for GameStatePlugin {
 }
 
 fn insert_game_resources(mut commands: Commands) {
-    commands.insert_resource(Lives(PLAYER_STARTING_LIVES));
+    commands.insert_resource(Lives(0));
     commands.insert_resource(Score(0));
 }
 
