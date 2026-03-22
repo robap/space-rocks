@@ -220,8 +220,8 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
 
 > Move bullets each frame, tick their lifetime timers, and despawn them when expired. Requires group 2.
 
-- [ ] **6.1** In `src/plugins/bullet.rs`, add `use` imports: `bevy::prelude::*`, `crate::components::*`, `crate::config::*`
-- [ ] **6.2** Write `fn move_bullets` update system:
+- [x] **6.1** In `src/plugins/bullet.rs`, add `use` imports: `bevy::prelude::*`, `crate::components::*`, `crate::config::*`
+- [x] **6.2** Write `fn move_bullets` update system:
   ```rust
   fn move_bullets(
       time: Res<Time>,
@@ -229,7 +229,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   )
   ```
   - `transform.translation += velocity.0.extend(0.0) * time.delta_secs()`
-- [ ] **6.3** Write `fn bullet_lifetime` update system:
+- [x] **6.3** Write `fn bullet_lifetime` update system:
   ```rust
   fn bullet_lifetime(
       mut commands: Commands,
@@ -239,7 +239,7 @@ Build the complete Space Rocks MVP from an empty directory: project scaffolding 
   ```
   - Tick timer: `lifetime.0.tick(time.delta())`
   - If `lifetime.0.finished()`: `commands.entity(entity).despawn()`
-- [ ] **6.4** In `BulletPlugin::build`, register:
+- [x] **6.4** In `BulletPlugin::build`, register:
   - `.add_systems(Update, (move_bullets, bullet_lifetime))`
 
 *Checkpoint: `cargo run` — bullets travel straight and disappear after ~1.2 seconds.*

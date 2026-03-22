@@ -3,6 +3,7 @@
 ## Technical
 
 - [ShipPlugin](technical/ship-plugin.md) — systems, types, and design decisions for player ship movement, rotation, and bullet firing
+- [BulletPlugin](technical/bullet-plugin.md) — bullet movement, screen wrapping, lifetime countdown, and despawn
 
 ## User
 
