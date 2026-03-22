@@ -325,7 +325,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Add `ship_asteroid_collision` system that detects ship↔asteroid overlap, despawns the ship, and fires `ShipDestroyedEvent`. Requires groups 5 and 6.
 
-- [ ] **8.1** Write `fn ship_asteroid_collision` system:
+- [x] **8.1** Write `fn ship_asteroid_collision` system:
   ```rust
   fn ship_asteroid_collision(
       mut commands: Commands,
@@ -341,7 +341,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
       - `destroyed.send(ShipDestroyedEvent)`
       - `return` (one hit is enough)
 
-- [ ] **8.2** Register in `CollisionPlugin::build`:
+- [x] **8.2** Register in `CollisionPlugin::build`:
   ```rust
   .add_systems(Update, ship_asteroid_collision
       .in_set(GameSet::Collision)

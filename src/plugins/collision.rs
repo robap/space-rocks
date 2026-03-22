@@ -9,7 +9,13 @@ pub struct CollisionPlugin;
 
 impl Plugin for CollisionPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, bullet_asteroid_collision.in_set(GameSet::Collision));
+        app.add_systems(Update, bullet_asteroid_collision.in_set(GameSet::Collision))
+            .add_systems(
+                Update,
+                ship_asteroid_collision
+                    .in_set(GameSet::Collision)
+                    .run_if(in_state(GameState::Playing)),
+            );
     }
 }
 
@@ -47,6 +53,28 @@ fn bullet_asteroid_collision(
                 );
                 break;
             }
+        }
+    }
+}
+
+#[allow(clippy::type_complexity)]
+fn ship_asteroid_collision(
+    mut commands: Commands,
+    mut destroyed: EventWriter<ShipDestroyedEvent>,
+    ship: Query<(Entity, &Transform), (With<Player>, Without<Invincible>)>,
+    asteroids: Query<(&Transform, &Asteroid)>,
+) {
+    let Ok((ship_entity, ship_transform)) = ship.get_single() else {
+        return;
+    };
+    let ship_pos = ship_transform.translation.truncate();
+
+    for (asteroid_transform, asteroid) in &asteroids {
+        let asteroid_pos = asteroid_transform.translation.truncate();
+        if circles_are_colliding(ship_pos, asteroid_pos, SHIP_RADIUS, asteroid.size.radius()) {
+            commands.entity(ship_entity).despawn();
+            destroyed.send(ShipDestroyedEvent);
+            return;
         }
     }
 }
