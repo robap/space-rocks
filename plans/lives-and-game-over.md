@@ -151,15 +151,15 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Register `GameState`, the two new plugins, and the new events in the `App`. Requires group 3.
 
-- [ ] **4.1** In `src/main.rs`, add imports:
+- [x] **4.1** In `src/main.rs`, add imports:
   ```rust
   use plugins::{game_state::GameStatePlugin, hud::HudPlugin};
   use components::GameState;
   ```
 
-- [ ] **4.2** Add `.init_state::<GameState>()` to the `App` builder (before `.run()`).
+- [x] **4.2** Add `.init_state::<GameState>()` to the `App` builder (before `.run()`).
 
-- [ ] **4.3** Add `GameStatePlugin` and `HudPlugin` to `.add_plugins(...)` tuple alongside existing plugins.
+- [x] **4.3** Add `GameStatePlugin` and `HudPlugin` to `.add_plugins(...)` tuple alongside existing plugins.
 
 *Checkpoint: `cargo run` opens a window, asteroids move (Attract state), no ship spawns — correct for Attract.*
 

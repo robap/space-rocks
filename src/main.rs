@@ -3,15 +3,17 @@ mod config;
 mod plugins;
 
 use bevy::prelude::*;
-use components::GameSet;
+use components::{GameSet, GameState};
 use plugins::{
-    asteroid::AsteroidPlugin, bullet::BulletPlugin, collision::CollisionPlugin, ship::ShipPlugin,
+    asteroid::AsteroidPlugin, bullet::BulletPlugin, collision::CollisionPlugin,
+    game_state::GameStatePlugin, hud::HudPlugin, ship::ShipPlugin,
 };
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
-        .add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin))
+        .init_state::<GameState>()
+        .add_plugins((ShipPlugin, AsteroidPlugin, BulletPlugin, CollisionPlugin, GameStatePlugin, HudPlugin))
         .configure_sets(
             Update,
             (GameSet::Movement, GameSet::Collision, GameSet::Despawn).chain(),
