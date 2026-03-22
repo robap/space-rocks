@@ -69,9 +69,9 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
 
 > Create `src/plugins/sound.rs` with all resources, asset loading, and five audio systems. This is the core of the feature.
 
-- [ ] **4.1** Create `src/plugins/sound.rs` with a stub `pub struct SoundPlugin;` and an empty `impl Plugin for SoundPlugin { fn build(&self, _app: &mut App) {} }`. Confirm it compiles.
+- [x] **4.1** Create `src/plugins/sound.rs` with a stub `pub struct SoundPlugin;` and an empty `impl Plugin for SoundPlugin { fn build(&self, _app: &mut App) {} }`. Confirm it compiles.
 
-- [ ] **4.2** Define `SoundAssets` and `ThrusterSoundEntity` resources in `sound.rs`:
+- [x] **4.2** Define `SoundAssets` and `ThrusterSoundEntity` resources in `sound.rs`:
   ```rust
   #[derive(Resource)]
   pub struct SoundAssets {
@@ -87,7 +87,7 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
   pub struct ThrusterSoundEntity(pub Option<Entity>);
   ```
 
-- [ ] **4.3** Implement `load_sounds` startup system in `sound.rs` that loads all six `.wav` files from `assets/sounds/` via `AssetServer` and inserts `SoundAssets` as a resource:
+- [x] **4.3** Implement `load_sounds` startup system in `sound.rs` that loads all six `.wav` files from `assets/sounds/` via `AssetServer` and inserts `SoundAssets` as a resource:
   ```rust
   fn load_sounds(mut commands: Commands, asset_server: Res<AssetServer>) {
       commands.insert_resource(SoundAssets {
@@ -101,13 +101,13 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
   }
   ```
 
-- [ ] **4.4** Implement `play_shoot_sound` system in `sound.rs`. Reads `BulletFiredEvent` and `SoundAssets`; spawns `(AudioPlayer(assets.shoot.clone()), PlaybackSettings::DESPAWN_ON_END)` for each event.
+- [x] **4.4** Implement `play_shoot_sound` system in `sound.rs`. Reads `BulletFiredEvent` and `SoundAssets`; spawns `(AudioPlayer(assets.shoot.clone()), PlaybackSettings::DESPAWN_ON_END)` for each event.
 
-- [ ] **4.5** Implement `play_asteroid_explosion` system in `sound.rs`. Reads `AsteroidDestroyedEvent` and `SoundAssets`; selects the handle based on `event.size` and spawns a one-shot audio entity with `PlaybackSettings::DESPAWN_ON_END`.
+- [x] **4.5** Implement `play_asteroid_explosion` system in `sound.rs`. Reads `AsteroidDestroyedEvent` and `SoundAssets`; selects the handle based on `event.size` and spawns a one-shot audio entity with `PlaybackSettings::DESPAWN_ON_END`.
 
-- [ ] **4.6** Implement `play_ship_explosion` system in `sound.rs`. Reads `ShipDestroyedEvent` and `SoundAssets`; spawns a one-shot audio entity for `assets.ship_explosion` with `PlaybackSettings::DESPAWN_ON_END`.
+- [x] **4.6** Implement `play_ship_explosion` system in `sound.rs`. Reads `ShipDestroyedEvent` and `SoundAssets`; spawns a one-shot audio entity for `assets.ship_explosion` with `PlaybackSettings::DESPAWN_ON_END`.
 
-- [ ] **4.7** Implement `manage_thruster_sound` system in `sound.rs`. Signature:
+- [x] **4.7** Implement `manage_thruster_sound` system in `sound.rs`. Signature:
   ```rust
   fn manage_thruster_sound(
       mut commands: Commands,
@@ -122,7 +122,7 @@ Add `bevy_audio` to the dependency features, introduce two new game events (`Bul
   - If `!is_active`, and `thruster_entity.0.is_some()`: despawn the stored entity, set `thruster_entity.0 = None`.
   - This handles both "key released" and "ship despawned" cases — `unwrap_or(false)` makes both stop the loop.
 
-- [ ] **4.8** Fill in `SoundPlugin::build` to register everything:
+- [x] **4.8** Fill in `SoundPlugin::build` to register everything:
   ```rust
   fn build(&self, app: &mut App) {
       app
