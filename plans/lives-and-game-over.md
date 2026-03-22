@@ -34,7 +34,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
 
 > Add all new components, resources, and events so every downstream task has concrete types to reference. Requires group 1.
 
-- [ ] **2.1** Add `GameState` enum to `src/components.rs`:
+- [x] **2.1** Add `GameState` enum to `src/components.rs`:
   ```rust
   #[derive(States, Debug, Clone, PartialEq, Eq, Hash, Default)]
   pub enum GameState {
@@ -46,7 +46,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **2.2** Add resource types to `src/components.rs`:
+- [x] **2.2** Add resource types to `src/components.rs`:
   ```rust
   #[derive(Resource)]
   pub struct Lives(pub u32);
@@ -55,7 +55,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   pub struct Score(pub u32);
   ```
 
-- [ ] **2.3** Add `Invincible` component to `src/components.rs` with two timers — one for the total window, one to track blink phase:
+- [x] **2.3** Add `Invincible` component to `src/components.rs` with two timers — one for the total window, one to track blink phase:
   ```rust
   #[derive(Component)]
   pub struct Invincible {
@@ -64,13 +64,13 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **2.4** Add `RespawnTimer` resource to `src/components.rs`:
+- [x] **2.4** Add `RespawnTimer` resource to `src/components.rs`:
   ```rust
   #[derive(Resource)]
   pub struct RespawnTimer(pub Timer);
   ```
 
-- [ ] **2.5** Add events to `src/components.rs`:
+- [x] **2.5** Add events to `src/components.rs`:
   ```rust
   #[derive(Event)]
   pub struct ShipDestroyedEvent;
@@ -84,7 +84,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   }
   ```
 
-- [ ] **2.6** Add HUD marker components to `src/components.rs`:
+- [x] **2.6** Add HUD marker components to `src/components.rs`:
   ```rust
   #[derive(Component)]
   pub struct HudLivesText;
@@ -99,7 +99,7 @@ Build the full game loop: ship-asteroid collision, a three-life system, and a fo
   pub struct PressAnyKeyText;
   ```
 
-- [ ] **2.7** Add constants to `src/config.rs`:
+- [x] **2.7** Add constants to `src/config.rs`:
   ```rust
   pub const SHIP_RADIUS: f32 = 16.0;
   pub const PLAYER_STARTING_LIVES: u32 = 3;

@@ -1,5 +1,52 @@
 use bevy::prelude::*;
 
+#[derive(States, Debug, Clone, PartialEq, Eq, Hash, Default)]
+pub enum GameState {
+    #[default]
+    Attract,
+    Playing,
+    Dead,
+    GameOver,
+}
+
+#[derive(Resource)]
+pub struct Lives(pub u32);
+
+#[derive(Resource)]
+pub struct Score(pub u32);
+
+#[derive(Component)]
+pub struct Invincible {
+    pub timer: Timer,
+    pub blink_timer: Timer,
+}
+
+#[derive(Resource)]
+pub struct RespawnTimer(pub Timer);
+
+#[derive(Event)]
+pub struct ShipDestroyedEvent;
+
+#[derive(Event)]
+pub struct ResetGameEvent;
+
+#[derive(Event)]
+pub struct SpawnShipEvent {
+    pub invincible: bool,
+}
+
+#[derive(Component)]
+pub struct HudLivesText;
+
+#[derive(Component)]
+pub struct HudScoreText;
+
+#[derive(Component)]
+pub struct GameOverText;
+
+#[derive(Component)]
+pub struct PressAnyKeyText;
+
 #[derive(SystemSet, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum GameSet {
     Movement,
