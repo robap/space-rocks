@@ -46,6 +46,20 @@ The smaller pieces move faster and spread apart when they split, so clearing a f
 
 ---
 
+## Scoring
+
+Every asteroid you destroy earns points. Smaller asteroids are harder to hit, so they're worth more.
+
+| Asteroid | Points |
+|----------|--------|
+| Large | 20 |
+| Medium | 50 |
+| Small | 100 |
+
+Your current score is shown in the **top-right corner** of the screen. It resets to zero when you start a new game.
+
+---
+
 ## Sound
 
 Every action has a sound. You'll hear:

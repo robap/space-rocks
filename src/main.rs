@@ -6,7 +6,8 @@ use bevy::prelude::*;
 use components::{GameSet, GameState};
 use plugins::{
     asteroid::AsteroidPlugin, bullet::BulletPlugin, collision::CollisionPlugin,
-    game_state::GameStatePlugin, hud::HudPlugin, ship::ShipPlugin, sound::SoundPlugin,
+    game_state::GameStatePlugin, hud::HudPlugin, score::ScorePlugin, ship::ShipPlugin,
+    sound::SoundPlugin,
 };
 
 fn main() {
@@ -20,6 +21,7 @@ fn main() {
             CollisionPlugin,
             GameStatePlugin,
             HudPlugin,
+            ScorePlugin,
             SoundPlugin,
         ))
         .configure_sets(

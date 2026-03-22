@@ -27,6 +27,7 @@ src/
     collision.rs   — CollisionPlugin
     game_state.rs  — GameStatePlugin
     hud.rs         — HudPlugin
+    score.rs       — ScorePlugin
     sound.rs       — SoundPlugin
 ```
 
@@ -41,7 +42,7 @@ fn main() {
         .init_state::<GameState>()
         .add_plugins((
             ShipPlugin, AsteroidPlugin, BulletPlugin,
-            CollisionPlugin, GameStatePlugin, HudPlugin, SoundPlugin,
+            CollisionPlugin, GameStatePlugin, HudPlugin, ScorePlugin, SoundPlugin,
         ))
         .configure_sets(
             Update,
@@ -128,6 +129,10 @@ pub const ASTEROID_MIN_SPEED: f32 = 40.0;         // pixels/sec
 pub const ASTEROID_MAX_SPEED: f32 = 120.0;        // pixels/sec
 pub const ASTEROID_MIN_ANGULAR_VELOCITY: f32 = -1.5; // rad/s
 pub const ASTEROID_MAX_ANGULAR_VELOCITY: f32 = 1.5;  // rad/s
+
+pub const SCORE_LARGE: u32  = 20;    // points for destroying a large asteroid
+pub const SCORE_MEDIUM: u32 = 50;    // points for destroying a medium asteroid
+pub const SCORE_SMALL: u32  = 100;   // points for destroying a small asteroid
 ```
 
 ---

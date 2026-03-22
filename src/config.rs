@@ -17,6 +17,10 @@ pub const SHIP_RESPAWN_DELAY_SECS: f32 = 1.5;
 pub const SHIP_INVINCIBILITY_SECS: f32 = 2.0;
 pub const SHIP_BLINK_INTERVAL_SECS: f32 = 0.1;
 
+pub const SCORE_LARGE: u32 = 20;
+pub const SCORE_MEDIUM: u32 = 50;
+pub const SCORE_SMALL: u32 = 100;
+
 #[cfg(test)]
 mod tests {
     use super::*;

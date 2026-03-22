@@ -9,7 +9,7 @@
 ## Post-MVP (Future)
 - [x] Lives and game over state (`specs/lives-and-game-over.md`)
 - [x] Sound effects (`specs/sound-effects.md`)
-- [ ] Score system — points per asteroid size destroyed (`specs/score-system.md`)
+- [x] Score system — points per asteroid size destroyed (`specs/score-system.md`)
 - [ ] Thrust enhancements: faster, less friction. Possibly reverse/brake
 - [ ] New wave spawning on asteroid clear. Show level in HUD
 - [ ] Increased number of asteriods on level clear. Up to max number.
