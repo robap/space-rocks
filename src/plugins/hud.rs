@@ -2,6 +2,22 @@ use bevy::prelude::*;
 
 use crate::components::*;
 
+type LivesTextFilter = (
+    With<HudLivesText>,
+    Without<HudScoreText>,
+    Without<HudLevelText>,
+);
+type ScoreTextFilter = (
+    With<HudScoreText>,
+    Without<HudLivesText>,
+    Without<HudLevelText>,
+);
+type LevelTextFilter = (
+    With<HudLevelText>,
+    Without<HudLivesText>,
+    Without<HudScoreText>,
+);
+
 pub struct HudPlugin;
 
 impl Plugin for HudPlugin {
@@ -12,7 +28,9 @@ impl Plugin for HudPlugin {
             .add_systems(OnEnter(GameState::Playing), hide_game_over_text)
             .add_systems(OnEnter(GameState::Attract), show_press_any_key)
             .add_systems(OnEnter(GameState::GameOver), show_press_any_key)
-            .add_systems(OnEnter(GameState::Playing), hide_press_any_key);
+            .add_systems(OnEnter(GameState::Playing), hide_press_any_key)
+            .add_systems(OnEnter(GameState::LevelTransition), show_level_ready_text)
+            .add_systems(OnExit(GameState::LevelTransition), hide_level_ready_text);
     }
 }
 
@@ -48,6 +66,26 @@ fn spawn_hud(mut commands: Commands) {
         },
         HudScoreText,
     ));
+
+    commands
+        .spawn(Node {
+            position_type: PositionType::Absolute,
+            top: Val::Px(10.0),
+            width: Val::Percent(100.0),
+            justify_content: JustifyContent::Center,
+            ..default()
+        })
+        .with_children(|parent| {
+            parent.spawn((
+                Text::new("Level: 1"),
+                TextFont {
+                    font_size: 24.0,
+                    ..default()
+                },
+                TextColor(Color::WHITE),
+                HudLevelText,
+            ));
+        });
 }
 
 fn spawn_overlay_text(mut commands: Commands) {
@@ -91,19 +129,45 @@ fn spawn_overlay_text(mut commands: Commands) {
                 PressAnyKeyText,
             ));
         });
+
+    commands
+        .spawn(Node {
+            position_type: PositionType::Absolute,
+            top: Val::Percent(40.0),
+            width: Val::Percent(100.0),
+            justify_content: JustifyContent::Center,
+            ..default()
+        })
+        .with_children(|parent| {
+            parent.spawn((
+                Text::new("Level 1 - Get Ready"),
+                TextFont {
+                    font_size: 32.0,
+                    ..default()
+                },
+                TextColor(Color::WHITE),
+                Visibility::Hidden,
+                LevelReadyText,
+            ));
+        });
 }
 
 fn update_hud(
     lives: Res<Lives>,
     score: Res<Score>,
-    mut lives_text: Query<&mut Text, With<HudLivesText>>,
-    mut score_text: Query<&mut Text, (With<HudScoreText>, Without<HudLivesText>)>,
+    level: Res<Level>,
+    mut lives_text: Query<&mut Text, LivesTextFilter>,
+    mut score_text: Query<&mut Text, ScoreTextFilter>,
+    mut level_text: Query<&mut Text, LevelTextFilter>,
 ) {
     if let Ok(mut text) = lives_text.get_single_mut() {
         **text = format!("Lives: {}", lives.0);
     }
     if let Ok(mut text) = score_text.get_single_mut() {
         **text = format!("Score: {}", score.0);
+    }
+    if let Ok(mut text) = level_text.get_single_mut() {
+        **text = format!("Level: {}", level.number);
     }
 }
 
@@ -126,6 +190,25 @@ fn show_press_any_key(mut query: Query<&mut Visibility, With<PressAnyKeyText>>) 
 }
 
 fn hide_press_any_key(mut query: Query<&mut Visibility, With<PressAnyKeyText>>) {
+    if let Ok(mut vis) = query.get_single_mut() {
+        *vis = Visibility::Hidden;
+    }
+}
+
+fn show_level_ready_text(
+    level: Res<Level>,
+    mut text_query: Query<&mut Text, With<LevelReadyText>>,
+    mut vis_query: Query<&mut Visibility, With<LevelReadyText>>,
+) {
+    if let Ok(mut text) = text_query.get_single_mut() {
+        **text = format!("Level {} - Get Ready", level.number);
+    }
+    if let Ok(mut vis) = vis_query.get_single_mut() {
+        *vis = Visibility::Visible;
+    }
+}
+
+fn hide_level_ready_text(mut query: Query<&mut Visibility, With<LevelReadyText>>) {
     if let Ok(mut vis) = query.get_single_mut() {
         *vis = Visibility::Hidden;
     }

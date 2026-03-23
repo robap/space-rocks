@@ -6,6 +6,7 @@ pub enum GameState {
     Attract,
     Playing,
     Dead,
+    LevelTransition,
     GameOver,
 }
 
@@ -42,6 +43,26 @@ pub struct ResetGameEvent;
 pub struct SpawnShipEvent {
     pub invincible: bool,
 }
+
+#[derive(Resource)]
+pub struct Level {
+    pub number: u32,
+    pub active: bool,
+}
+
+#[derive(Event)]
+pub struct SpawnLevelEvent {
+    pub count: usize,
+}
+
+#[derive(Resource)]
+pub struct LevelTransitionTimer(pub Timer);
+
+#[derive(Component)]
+pub struct HudLevelText;
+
+#[derive(Component)]
+pub struct LevelReadyText;
 
 #[derive(Component)]
 pub struct HudLivesText;

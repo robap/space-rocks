@@ -3,6 +3,7 @@ pub mod bullet;
 pub mod collision;
 pub mod game_state;
 pub mod hud;
+pub mod level;
 pub mod score;
 pub mod ship;
 pub mod sound;

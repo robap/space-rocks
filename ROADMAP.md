@@ -11,8 +11,7 @@
 - [x] Sound effects (`specs/sound-effects.md`)
 - [x] Score system — points per asteroid size destroyed (`specs/score-system.md`)
 - [x] Thrust enhancements: faster, less friction. Possibly reverse/brake (`specs/thrust-enhancements.md`)
-- [ ] New wave spawning on asteroid clear. Show level in HUD
-- [ ] Increased number of asteriods on level clear. Up to max number.
+- [x] Level progression: new wave on clear, scaled asteroid count, level in HUD (`specs/level-progression.md`)
 - [ ] Extra life at X points
 - [ ] Enemy ships
 - [ ] Power ups - double firepower, shields, extra life, nuke (decimates asteroids)

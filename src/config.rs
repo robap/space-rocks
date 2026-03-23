@@ -17,6 +17,10 @@ pub const SHIP_RESPAWN_DELAY_SECS: f32 = 1.5;
 pub const SHIP_INVINCIBILITY_SECS: f32 = 2.0;
 pub const SHIP_BLINK_INTERVAL_SECS: f32 = 0.1;
 
+pub const ASTEROID_COUNT_INCREMENT: usize = 2;
+pub const ASTEROID_MAX_COUNT: usize = 12;
+pub const LEVEL_TRANSITION_SECS: f32 = 5.0;
+
 pub const SCORE_LARGE: u32 = 20;
 pub const SCORE_MEDIUM: u32 = 50;
 pub const SCORE_SMALL: u32 = 100;
@@ -43,5 +47,15 @@ mod tests {
         assert!(SHIP_INVINCIBILITY_SECS > 0.0);
         assert!(SHIP_BLINK_INTERVAL_SECS > 0.0);
         assert!(SHIP_BLINK_INTERVAL_SECS < SHIP_INVINCIBILITY_SECS);
+    }
+
+    #[test]
+    fn level_constants_are_consistent() {
+        assert!(ASTEROID_INITIAL_COUNT < ASTEROID_MAX_COUNT);
+    }
+
+    #[test]
+    fn level_transition_secs_is_positive() {
+        assert!(LEVEL_TRANSITION_SECS > 0.0);
     }
 }

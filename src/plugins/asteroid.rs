@@ -9,25 +9,13 @@ pub struct AsteroidPlugin;
 
 impl Plugin for AsteroidPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, spawn_asteroids)
-            .add_systems(
-                Update,
-                (move_asteroids, wrap_asteroids).in_set(GameSet::Movement),
-            )
-            .add_systems(Update, handle_asteroid_reset);
+        app.add_systems(
+            Update,
+            (move_asteroids, wrap_asteroids).in_set(GameSet::Movement),
+        )
+        .add_systems(Update, despawn_asteroids_on_reset)
+        .add_systems(Update, handle_spawn_level);
     }
-}
-
-fn spawn_asteroids(
-    mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
-    window: Query<&Window, With<PrimaryWindow>>,
-) {
-    let Ok(window) = window.get_single() else {
-        return;
-    };
-    spawn_asteroids_into(&mut commands, &mut meshes, &mut materials, window);
 }
 
 fn spawn_asteroids_into(
@@ -35,12 +23,13 @@ fn spawn_asteroids_into(
     meshes: &mut ResMut<Assets<Mesh>>,
     materials: &mut ResMut<Assets<ColorMaterial>>,
     window: &Window,
+    count: usize,
 ) {
     let half_w = window.width() / 2.0;
     let half_h = window.height() / 2.0;
     let mut rng = rand::thread_rng();
 
-    for _ in 0..ASTEROID_INITIAL_COUNT {
+    for _ in 0..count {
         let (x, y) = random_edge_position(&mut rng, half_w, half_h);
         let angle = rng.gen_range(0.0..std::f32::consts::TAU);
         let speed = rng.gen_range(ASTEROID_MIN_SPEED..ASTEROID_MAX_SPEED);
@@ -60,22 +49,36 @@ fn spawn_asteroids_into(
     }
 }
 
-fn handle_asteroid_reset(
+fn despawn_asteroids_on_reset(
     mut events: EventReader<ResetGameEvent>,
     mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
     asteroids: Query<Entity, With<Asteroid>>,
-    window: Query<&Window, With<PrimaryWindow>>,
 ) {
     for _ in events.read() {
         for entity in &asteroids {
             commands.entity(entity).despawn();
         }
+    }
+}
+
+fn handle_spawn_level(
+    mut events: EventReader<SpawnLevelEvent>,
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
+    window: Query<&Window, With<PrimaryWindow>>,
+) {
+    for event in events.read() {
         let Ok(window) = window.get_single() else {
             return;
         };
-        spawn_asteroids_into(&mut commands, &mut meshes, &mut materials, window);
+        spawn_asteroids_into(
+            &mut commands,
+            &mut meshes,
+            &mut materials,
+            window,
+            event.count,
+        );
     }
 }
 
